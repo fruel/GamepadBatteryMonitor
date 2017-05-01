@@ -26,7 +26,7 @@ namespace GamepadBatteryMonitor
         {
             _notifyIcon = new NotifyIcon();
             _notifyIcon.DoubleClick += OpenSettings;
-            _notifyIcon.Icon = Resources.TrayIcon;
+            _notifyIcon.Icon = Resources.AppIcon;
             _notifyIcon.Text = Resources.Title;
             _notifyIcon.Visible = true;
             _notifyIcon.ContextMenu = BuildContextMenu(null);
@@ -72,7 +72,7 @@ namespace GamepadBatteryMonitor
 
         private void OpenSettings(object sender, EventArgs eventArgs)
         {
-           ConfigWindow config = new ConfigWindow();
+            ConfigWindow config = new ConfigWindow();
             config.Show();
         }
 
@@ -94,10 +94,6 @@ namespace GamepadBatteryMonitor
             menu.MenuItems.Add("Exit", Exit);
 
             return menu;
-
-
         }
-
-        
     }
 }

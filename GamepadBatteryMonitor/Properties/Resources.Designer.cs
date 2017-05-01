@@ -61,6 +61,80 @@ namespace GamepadBatteryMonitor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to © 2017 Lukas Frühstück (fruel) and contributers.
+        /// </summary>
+        public static string AboutLine1 {
+            get {
+                return ResourceManager.GetString("AboutLine1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensed under //TODO add license.
+        /// </summary>
+        public static string AboutLine2 {
+            get {
+                return ResourceManager.GetString("AboutLine2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        public static string AboutLine3 {
+            get {
+                return ResourceManager.GetString("AboutLine3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon AppIcon {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AppIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gampad Battery Monitor.
         /// </summary>
         public static string Title {
@@ -70,12 +144,11 @@ namespace GamepadBatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized string similar to XInput Gamepad {0}.
         /// </summary>
-        public static System.Drawing.Icon TrayIcon {
+        public static string XinputGamepad {
             get {
-                object obj = ResourceManager.GetObject("TrayIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ResourceManager.GetString("XinputGamepad", resourceCulture);
             }
         }
     }

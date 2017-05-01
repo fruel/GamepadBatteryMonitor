@@ -12,11 +12,8 @@ namespace GamepadBatteryMonitor.Gamepads
         private const string XINPUT_DLL = "xinput1_4.dll";
 
         private const int ERROR_SUCCESS = 0x0;
-
         private const int XUSER_MAX_COUNT = 4;
-
         private const int BATTERY_DEVTYPE_GAMEPAD = 0x00;
-        private const int BATTERY_DEVTYPE_HEADSET = 0x01;
 
         private enum BATTERY_TYPE : byte
         {
@@ -74,7 +71,7 @@ namespace GamepadBatteryMonitor.Gamepads
                 int result = XInputGetBatteryInformation(i, BATTERY_DEVTYPE_GAMEPAD, ref batteryData);
                 if (result == ERROR_SUCCESS)
                 {
-                    gamepads.Add(new Gamepad(typeof(XInputGamepadProvider), $"XInput Gamepad {i+1}", ToBatteryLevel(batteryData), i));
+                    gamepads.Add(new Gamepad(typeof(XInputGamepadProvider), String.Format(Properties.Resources.XinputGamepad, i + 1), ToBatteryLevel(batteryData), i));
                 }
             }
 
@@ -105,7 +102,7 @@ namespace GamepadBatteryMonitor.Gamepads
         private void Vibrate(Gamepad gamepad, float level)
         {
             ushort motorLevel = (ushort) (ushort.MaxValue * level);
-            XINPUT_VIBRATION vibrate = new XINPUT_VIBRATION()
+            XINPUT_VIBRATION vibrate = new XINPUT_VIBRATION
             {
                 LeftMotorSpeed = motorLevel,
                 RightMotorSpeed = motorLevel
