@@ -117,11 +117,56 @@ namespace GamepadBatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close.
+        ///   Looks up a localized string similar to Notify when battery level drops to:.
         /// </summary>
-        public static string Close {
+        public static string NotifyBatteryDrop {
             get {
-                return ResourceManager.GetString("Close", resourceCulture);
+                return ResourceManager.GetString("NotifyBatteryDrop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Conditions.
+        /// </summary>
+        public static string NotifyCondition {
+            get {
+                return ResourceManager.GetString("NotifyCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Settings.
+        /// </summary>
+        public static string NotifyOptions {
+            get {
+                return ResourceManager.GetString("NotifyOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spoken notification.
+        /// </summary>
+        public static string PlaySound {
+            get {
+                return ResourceManager.GetString("PlaySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use text-to-speech to inform about low battery levels..
+        /// </summary>
+        public static string PlaySoundDetails {
+            get {
+                return ResourceManager.GetString("PlaySoundDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -135,11 +180,56 @@ namespace GamepadBatteryMonitor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show notification popup.
+        /// </summary>
+        public static string ShowNotification {
+            get {
+                return ResourceManager.GetString("ShowNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The notification popup might not be visible when running fullscreen applications or games..
+        /// </summary>
+        public static string ShowNotificationDetails {
+            get {
+                return ResourceManager.GetString("ShowNotificationDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Notification.
+        /// </summary>
+        public static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gampad Battery Monitor.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vibrate gamepad.
+        /// </summary>
+        public static string VibrateGamepad {
+            get {
+                return ResourceManager.GetString("VibrateGamepad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games that use gamepad vibration might override the Battery Monitor vibration pattern..
+        /// </summary>
+        public static string VibrateGamepadDetails {
+            get {
+                return ResourceManager.GetString("VibrateGamepadDetails", resourceCulture);
             }
         }
         

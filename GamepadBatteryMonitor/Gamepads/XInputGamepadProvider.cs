@@ -78,9 +78,12 @@ namespace GamepadBatteryMonitor.Gamepads
             return gamepads;
         }
 
-        public void NotifyLowBattery(Gamepad gamepad)
+        public void NotifyLowBattery(Gamepad gamepad, NotificationConfiguration config)
         {
-            Task.Run(() => LowBatteryVibratePattern(gamepad));
+            if (config.Vibrate)
+            {
+                Task.Run(() => LowBatteryVibratePattern(gamepad));
+            }
         }
 
         private async void LowBatteryVibratePattern(Gamepad gamepad)

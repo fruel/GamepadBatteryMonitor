@@ -136,14 +136,44 @@
   <data name="AppIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AppIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
+  <data name="NotifyBatteryDrop" xml:space="preserve">
+    <value>Notify when battery level drops to:</value>
+  </data>
+  <data name="NotifyCondition" xml:space="preserve">
+    <value>Notification Conditions</value>
+  </data>
+  <data name="NotifyOptions" xml:space="preserve">
+    <value>Notification Settings</value>
+  </data>
+  <data name="PlaySound" xml:space="preserve">
+    <value>Spoken notification</value>
+  </data>
+  <data name="PlaySoundDetails" xml:space="preserve">
+    <value>Use text-to-speech to inform about low battery levels.</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ShowNotification" xml:space="preserve">
+    <value>Show notification popup</value>
+  </data>
+  <data name="ShowNotificationDetails" xml:space="preserve">
+    <value>The notification popup might not be visible when running fullscreen applications or games.</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test Notification</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Gampad Battery Monitor</value>
+  </data>
+  <data name="VibrateGamepad" xml:space="preserve">
+    <value>Vibrate gamepad</value>
+  </data>
+  <data name="VibrateGamepadDetails" xml:space="preserve">
+    <value>Games that use gamepad vibration might override the Battery Monitor vibration pattern.</value>
   </data>
   <data name="XinputGamepad" xml:space="preserve">
     <value>XInput Gamepad {0}</value>

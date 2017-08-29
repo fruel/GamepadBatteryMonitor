@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="GamepadBatteryMonitor.ConfigWindow"
+        x:Name="configWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GamepadBatteryMonitor"
+        xmlns:resx="clr-namespace:GamepadBatteryMonitor.Properties"
+        xmlns:system="clr-namespace:System;assembly=System"
+        mc:Ignorable="d" >
+    <UserControl.Resources>
+        <system:Uri x:Key="AboutUri">https://github.com/fruel/GamepadBatteryMonitor</system:Uri>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="{x:Static resx:Resources.Settings}" >
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <GroupBox Header="{x:Static resx:Resources.NotifyCondition}">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="{x:Static resx:Resources.NotifyBatteryDrop}" Margin="0,0,10,0"/>
+                            <ComboBox SelectedItem="{Binding SelectedBatteryLevel}" ItemsSource="{Binding AvailableBatteryLevels}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static resx:Resources.NotifyOptions}">
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <Grid Margin="5,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Path=IsShowNotificationEnabled, Mode=TwoWay}"/>
+                                <Label Content="{x:Static resx:Resources.ShowNotification}" Grid.Row="0" Grid.Column="1" />
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="1" Grid.Column="1" FontStyle="Italic" Text="{x:Static resx:Resources.ShowNotificationDetails}" Margin="5,0,0,10"/>
+
+                                <CheckBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Path=IsVibrateGamepadEnabled, Mode=TwoWay}"/>
+                                <Label Content="{x:Static resx:Resources.VibrateGamepad}" Grid.Row="2" Grid.Column="1" />
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.Column="1" FontStyle="Italic" Text="{x:Static resx:Resources.VibrateGamepadDetails}" Margin="5,0,0,10"/>
+
+                                <CheckBox Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Path=IsPlaySoundEnabled, Mode=TwoWay}"/>
+                                <Label Content="{x:Static resx:Resources.PlaySound}" Grid.Row="4" Grid.Column="1" />
+                                <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="5" Grid.Column="1" FontStyle="Italic" Text="{x:Static resx:Resources.PlaySoundDetails}" Margin="5,0,0,10"/>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="{x:Static resx:Resources.About}">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+                    <Image Source="../Resources/AppIcon.png" Width="100" />
+                    <Label Content="{x:Static resx:Resources.AboutLine1}" />
+                    <Label Content="{x:Static resx:Resources.AboutLine2}" />
+                    <Label x:Name="VersionLabel" />
+                    <Label>
+                        <Hyperlink NavigateUri="{StaticResource AboutUri}" RequestNavigate="Hyperlink_OnRequestNavigate">
+                            <Run x:Name="GithubUrl" />
+                        </Hyperlink>
+                    </Label>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <Button Content="{x:Static resx:Resources.Test}" Width="Auto" Grid.Row="1" HorizontalAlignment="Left" Command="{Binding Path=TestCommand}" 
+                Margin="5" Padding="15,1" />
+        <Button Content="{x:Static resx:Resources.Save}" Width="Auto" Grid.Row="1" HorizontalAlignment="Right" Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=configWindow}"
+                Margin="5" Padding="15,1" />
+    </Grid>
+</UserControl>

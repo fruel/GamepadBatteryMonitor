@@ -5,6 +5,8 @@
              ShutdownMode="OnExplicitShutdown"
              Startup="Application_Startup">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type local:ConfigWindowViewModel}">
+            <local:ConfigWindow/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

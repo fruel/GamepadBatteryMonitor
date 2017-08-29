@@ -13,6 +13,13 @@ namespace GamepadBatteryMonitor.Gamepads
         Empty, Low, Medium, Full, Wired, Unknown
     }
 
+    public class NotificationConfiguration
+    {
+        public bool Popup;
+        public bool Vibrate;
+        public bool Sound;
+    }
+
     public class Gamepad
     {
         public Gamepad(Type dataProvider, string name, BatteryLevel batteryLevel, object identifier)
@@ -54,11 +61,10 @@ namespace GamepadBatteryMonitor.Gamepads
     internal interface IGamepadProvider
     {
         List<Gamepad> GetGamepadStates();
-        void NotifyLowBattery(Gamepad gamepad);
+        void NotifyLowBattery(Gamepad gamepad, NotificationConfiguration config);
     }
 
-    public delegate void GamepadBatteryLevelChangedHandler(Gamepad gamepad);
-    public delegate void GamepadBatteryLevelChangedToLowHandler(Gamepad gamepad);
+    public delegate void GamepadEvent(Gamepad gamepad);
 
     public class GamepadMonitor
     {
@@ -70,8 +76,9 @@ namespace GamepadBatteryMonitor.Gamepads
         
         private Timer _gamepadMonitorTimer;
 
-        public event GamepadBatteryLevelChangedHandler OnBatteryLevelChanged;
-        public event GamepadBatteryLevelChangedToLowHandler OnBatteryLevelChangedToLow;
+        public event GamepadEvent OnBatteryLevelChanged;
+        public event GamepadEvent OnGamepadRemoved;
+        public event GamepadEvent OnBatteryLevelChangedToLow;
 
         public GamepadMonitor()
         {
@@ -109,6 +116,9 @@ namespace GamepadBatteryMonitor.Gamepads
 
         private void MonitorBatteryLevels()
         {
+            BatteryLevel triggerLevel = BatteryLevel.Empty;
+            Enum.TryParse(Properties.Settings.Default.notifyLevel, out triggerLevel);
+
             List<Gamepad> oldGamepadStates = ConnectedGamepads;
             ConnectedGamepads = new List<Gamepad>();
 
@@ -127,7 +137,7 @@ namespace GamepadBatteryMonitor.Gamepads
                     {
                         OnBatteryLevelChanged?.Invoke(gamepad);
 
-                        if (gamepad.BatteryLevel == BatteryLevel.Low)
+                        if (gamepad.BatteryLevel == triggerLevel && oldGamepad.BatteryLevel != BatteryLevel.Unknown && oldGamepad.BatteryLevel > triggerLevel)
                         {
                             OnBatteryLevelChangedToLow?.Invoke(gamepad);
                         }
@@ -138,11 +148,16 @@ namespace GamepadBatteryMonitor.Gamepads
                     OnBatteryLevelChanged?.Invoke(gamepad);
                 }
             }
+
+            foreach (var gamepad in oldGamepadStates.Except(ConnectedGamepads))
+            {
+                OnGamepadRemoved?.Invoke(gamepad);
+            }
         }
 
-        public void SendBatteryLowNotification(Gamepad gamepad)
+        public void SendBatteryLowNotification(Gamepad gamepad, NotificationConfiguration config)
         {
-            GetOwningProvider(gamepad).NotifyLowBattery(gamepad);
+            GetOwningProvider(gamepad).NotifyLowBattery(gamepad, config);
         }
 
         internal IGamepadProvider GetOwningProvider(Gamepad gamepad)

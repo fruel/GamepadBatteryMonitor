@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Speech.Synthesis;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using GamepadBatteryMonitor.Gamepads;
@@ -22,6 +25,11 @@ namespace GamepadBatteryMonitor
             _monitor = monitor;
         }
 
+        public GamepadMonitor Monitor
+        {
+            get { return _monitor; }
+        }
+
         public void Initialize()
         {
             _notifyIcon = new NotifyIcon();
@@ -32,15 +40,36 @@ namespace GamepadBatteryMonitor
             _notifyIcon.ContextMenu = BuildContextMenu(null);
 
             _monitor.OnBatteryLevelChanged += UpdateTooltip;
-            _monitor.OnBatteryLevelChangedToLow += ShowLowNotification;
+            _monitor.OnGamepadRemoved += UpdateTooltip;
+            _monitor.OnBatteryLevelChangedToLow += BatteryLevelChangedToLow;
 
             UpdateTooltip(null);
         }
 
-        private void ShowLowNotification(Gamepad gamepad)
+        private void BatteryLevelChangedToLow(Gamepad gamepad)
         {
-            _notifyIcon.ShowBalloonTip(NotificationTimeout * 1000, Resources.Title, $"{gamepad.Name} is {gamepad.BatteryLevel}", ToolTipIcon.None);
-            _monitor.SendBatteryLowNotification(gamepad);
+            ShowLowNotification(gamepad, GetNotificationConfiguration());
+        }
+
+        public void ShowLowNotification(Gamepad gamepad, NotificationConfiguration config)
+        {
+            if (config.Popup)
+            {
+                _notifyIcon.ShowBalloonTip(NotificationTimeout * 1000, Resources.Title, $"{gamepad.Name} is {gamepad.BatteryLevel}", ToolTipIcon.None);
+            }
+
+            if (config.Sound)
+            {
+                SpeechSynthesizer synthesizer = new SpeechSynthesizer
+                {
+                    Volume = 100,
+                    Rate = 0
+                };
+
+                synthesizer.SpeakAsync($"Battery level of {gamepad.Name} is {gamepad.BatteryLevel}");
+            }
+
+            _monitor.SendBatteryLowNotification(gamepad, config);
         }
 
         private void UpdateTooltip(Gamepad changedGamepad)
@@ -60,6 +89,7 @@ namespace GamepadBatteryMonitor
             }
             else
             {
+                _notifyIcon.ContextMenu = BuildContextMenu(null);
                 _notifyIcon.Text = Resources.Title;
             }
         }
@@ -67,12 +97,21 @@ namespace GamepadBatteryMonitor
         private void Exit(object sender, EventArgs eventArgs)
         {
             _monitor.EndMonitoring();
+            _notifyIcon.Visible = false;
             Application.Current.Shutdown();
         }
 
         private void OpenSettings(object sender, EventArgs eventArgs)
         {
-            ConfigWindow config = new ConfigWindow();
+            Window config = new Window
+            {
+                Content = new ConfigWindowViewModel(this),
+                ResizeMode = ResizeMode.NoResize,
+                Title = Resources.Title,
+                Width = 525,
+                Height = 400
+            };
+
             config.Show();
         }
 
@@ -94,6 +133,16 @@ namespace GamepadBatteryMonitor
             menu.MenuItems.Add("Exit", Exit);
 
             return menu;
+        }
+
+        private NotificationConfiguration GetNotificationConfiguration()
+        {
+            return new NotificationConfiguration
+            {
+                Popup = Settings.Default.notifyPopup,
+                Vibrate = Settings.Default.notifyVibrate,
+                Sound = Settings.Default.notifySound
+            };
         }
     }
 }
