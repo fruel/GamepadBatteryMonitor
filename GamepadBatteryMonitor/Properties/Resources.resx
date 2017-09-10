@@ -124,7 +124,7 @@
     <value>© 2017 Lukas Frühstück (fruel) and contributers</value>
   </data>
   <data name="AboutLine2" xml:space="preserve">
-    <value>Licensed under //TODO add license</value>
+    <value>Licensed under MIT license</value>
   </data>
   <data name="AboutLine3" xml:space="preserve">
     <value>Version {0}</value>

@@ -79,7 +79,7 @@ namespace GamepadBatteryMonitor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensed under //TODO add license.
+        ///   Looks up a localized string similar to Licensed under MIT license.
         /// </summary>
         public static string AboutLine2 {
             get {
