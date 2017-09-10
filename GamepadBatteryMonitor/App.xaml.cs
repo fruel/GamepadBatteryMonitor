@@ -21,10 +21,8 @@ namespace GamepadBatteryMonitor
             Monitor = new GamepadMonitor();
             TrayIcon =  new SystemTray(Monitor);
 
-            Monitor.OnBatteryLevelChanged += gamepad => Console.Out.WriteLine($"{gamepad.Name}: {gamepad.BatteryLevel}");
-            Monitor.BeginMonitoring();
-
             TrayIcon.Initialize();
+            Monitor.BeginMonitoring();
         }
     }
 }

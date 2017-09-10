@@ -19,10 +19,16 @@ namespace GamepadBatteryMonitor
 
         private NotifyIcon _notifyIcon;
         private readonly GamepadMonitor _monitor;
+        private readonly SpeechSynthesizer _synthesizer;
 
         public SystemTray(GamepadMonitor monitor)
         {
             _monitor = monitor;
+            _synthesizer = new SpeechSynthesizer
+            {
+                Volume = 100,
+                Rate = 0
+            };
         }
 
         public GamepadMonitor Monitor
@@ -60,13 +66,7 @@ namespace GamepadBatteryMonitor
 
             if (config.Sound)
             {
-                SpeechSynthesizer synthesizer = new SpeechSynthesizer
-                {
-                    Volume = 100,
-                    Rate = 0
-                };
-
-                synthesizer.SpeakAsync($"Battery level of {gamepad.Name} is {gamepad.BatteryLevel}");
+                _synthesizer.SpeakAsync($"Battery level of {gamepad.Name} is {gamepad.BatteryLevel}");
             }
 
             _monitor.SendBatteryLowNotification(gamepad, config);
@@ -84,13 +84,13 @@ namespace GamepadBatteryMonitor
                 {
                     stringBuilder.AppendLine($"{gamepad.Name}: {gamepad.BatteryLevel}");
                 }
-                _notifyIcon.Text = stringBuilder.ToString();
+                //_notifyIcon.Text = stringBuilder.ToString();
                 _notifyIcon.ContextMenu = BuildContextMenu(gamepads);
             }
             else
             {
                 _notifyIcon.ContextMenu = BuildContextMenu(null);
-                _notifyIcon.Text = Resources.Title;
+                //_notifyIcon.Text = Resources.Title;
             }
         }
 
